@@ -1,0 +1,1 @@
+This project goal is to automate documentation for sportsman rank application
