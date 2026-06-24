@@ -1,11 +1,27 @@
+import json
+import os
 from docx import Document
 
-file = open(r"C:\Users\anaconda3\Predstavlenie_na_razryad_blank.docx", "r")
-content = file.read()
-file.close()
+file_path = r"C:\Users\Император Безмолвный\Desktop\fill_race.json"
+docx_path = r"C:\Users\Император Безмолвный\Desktop\result.docx"
 
-with open(r"C:\Users\anaconda3\Predstavlenie_na_razryad_blank.docx", "r") as f:
-    result = Document.detect(f.read(10000))
-    print(result['encoding'])  
+if not os.path.exists(file_path):
+    print("Ошибка: Файл не найден!")
+else:
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        print("Содержимое файла:")
+        print((json.dumps(data, ensure_ascii=False, indent=2)))     
+    except Exception as e:
+        print(f"Ошибка при чтении файла: {e}")
 
-#No module named 'docx'
+# Создаём документ
+doc = Document()
+doc.add_heading("Out_race", level=1)
+
+for key, value in data.items():
+    doc.add_paragraph(f"{key}: {value}")
+
+doc.save(docx_path)
+print("Документ создан:", docx_path)
