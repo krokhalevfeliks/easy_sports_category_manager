@@ -16,7 +16,6 @@ else:
     except Exception as e:
         print(f"Ошибка при чтении файла: {e}")
 
-# Создаём документ
 doc = Document()
 doc.add_heading("Out_race", level=1)
 
